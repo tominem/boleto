@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
+import org.springframework.http.HttpHeaders;
+
 public class ParserUtil {
 
 	public static LocalDateTime toLocalDateTime(String dateAsText) {
@@ -15,6 +17,12 @@ public class ParserUtil {
 		}
 		
 		return null;
+	}
+
+	public static HttpHeaders newHttpHeader(HttpHeaders tecnospedHeaders) {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.addAll(tecnospedHeaders);
+		return httpHeaders;
 	}
 
 }

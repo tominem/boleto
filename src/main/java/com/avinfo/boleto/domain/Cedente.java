@@ -2,6 +2,7 @@ package com.avinfo.boleto.domain;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,7 @@ public class Cedente {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="cedente_id")
 	private final Long id;
 	private final Long idIntegracao;
 	private final String razaosocial;

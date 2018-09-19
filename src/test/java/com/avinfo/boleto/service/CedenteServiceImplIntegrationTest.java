@@ -1,4 +1,4 @@
-package com.avinfo.boleto;
+package com.avinfo.boleto.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.avinfo.boleto.client.CedenteClientImpl;
+import com.avinfo.boleto.client.CedenteClient;
 import com.avinfo.boleto.client.exception.TecnospedRestClientError;
 import com.avinfo.boleto.config.TecnospedRestConfig;
 import com.avinfo.boleto.domain.Cedente;
@@ -23,10 +24,11 @@ import com.avinfo.boleto.service.CedenteServiceImpl;
 import generator.CNPJGenerator;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={TecnospedRestConfig.class, CedenteRepository.class, CedenteClientImpl.class, CedenteServiceImpl.class})
+@ContextConfiguration(classes={TecnospedRestConfig.class, CedenteServiceImpl.class, CedenteRepository.class, CedenteClient.class})
 @EnableAutoConfiguration
+@EnableJpaRepositories(basePackageClasses=CedenteRepository.class)
 @DataJpaTest
-@EntityScan(basePackageClasses=Cedente.class)
+@EntityScan(basePackageClasses={Cedente.class})
 @ActiveProfiles("homo")
 public class CedenteServiceImplIntegrationTest {
 

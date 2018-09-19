@@ -15,10 +15,10 @@ import com.avinfo.boleto.repository.CedenteRepository;
 public class CedenteServiceImpl implements CedenteService{
 
 	private final CedenteClient cedenteClient;
-	private CedenteRepository cedenteRepository;
+	private final CedenteRepository cedenteRepository;
 	
 	@Autowired
-	public CedenteServiceImpl(CedenteClient cedenteClient, CedenteRepository cedenteRepository) {
+	public CedenteServiceImpl(final CedenteClient cedenteClient, final CedenteRepository cedenteRepository) {
 		this.cedenteClient = cedenteClient;
 		this.cedenteRepository = cedenteRepository;
 	}

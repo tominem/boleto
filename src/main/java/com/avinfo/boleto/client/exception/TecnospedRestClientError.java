@@ -1,4 +1,4 @@
-package com.avinfo.boleto.client.handler;
+package com.avinfo.boleto.client.exception;
 
 public class TecnospedRestClientError extends RuntimeException {
 

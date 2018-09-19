@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.avinfo.boleto.client.CedenteClientImpl;
-import com.avinfo.boleto.client.handler.TecnospedRestClientError;
+import com.avinfo.boleto.client.exception.TecnospedRestClientError;
 import com.avinfo.boleto.config.TecnospedRestConfig;
 import com.avinfo.boleto.domain.Cedente;
 import com.avinfo.boleto.repository.CedenteRepository;

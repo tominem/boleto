@@ -47,7 +47,6 @@ public class ContaServiceImplIntegrationTest {
                  .tipoConta("CORRENTE")
                  .codBeneficiario("60473")
                  .cedente(Cedente.builder()
-                		 	.id(1L)
                 		 	.cpfCnpj("01001001000113")
                 		 	.build())
                  .build();
@@ -63,31 +62,25 @@ public class ContaServiceImplIntegrationTest {
 		
 		return contaSaved; 
 	}
-
+	
 	@Test
 	public void cadastrarEhEditarContaSuccessTest(){
 
-		Conta contaCadastrada = cadastrarConta();
+		final Conta contaPersisted = cadastrarConta();
+		final Long idPersisted = contaPersisted.getId();
 		
-		final Conta contaDTO = Conta.builder()
-			     .codigoBanco("341")
-			     .idIntegracao(contaCadastrada.getIdIntegracao())
+		final Conta contaDTO = contaPersisted.toBuilder()
 			     .agencia("55555") //Numero de agência randomica
-                 .cedente(Cedente.builder()
-                		 	.id(1L)
-                		 	.cpfCnpj("01001001000113")
-                		 	.build())
                  .build();
 		
-		Conta contaCadastrado = contaService.save(contaDTO);
-		Conta contaSaved = contaService.findById(contaCadastrado.getId()).get();
+		final Conta contaTransmited = contaService.save(contaDTO);
+		final Conta contaSaved = contaService.findById(contaTransmited.getId()).get();
 		
-		assertThat(contaCadastrada.getAgencia()).isNotEqualTo(contaSaved);
 		assertThat(contaSaved.getAgencia()).isEqualTo("55555");
-		assertThat(contaSaved.getCodBeneficiario()).isEqualTo(contaCadastrada.getCodBeneficiario());
+		assertThat(contaSaved.getCodBeneficiario()).isEqualTo(contaPersisted.getCodBeneficiario());
 		
 		assertThat(contaSaved.getId()).isNotNull().isGreaterThan(0L);
-		assertThat(contaCadastrado.getId()).isEqualTo(contaSaved.getId());
+		assertThat(contaTransmited.getId()).isEqualTo(idPersisted);
 
 	}
 

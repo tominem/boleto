@@ -26,4 +26,10 @@ public class ParserUtil {
 		}
 	}
 
+	public static void writeNumberField(JsonGenerator gen, String field, Long value) throws IOException {
+		if (value != null) {
+			gen.writeNumberField(field, value);
+		}
+	}
+
 }

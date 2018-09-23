@@ -3,6 +3,7 @@ package com.avinfo.boleto.domain;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,6 +36,7 @@ public class Conta {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="conta_id")
 	private final Long   id;
 	private final Long idIntegracao;
     private final String codigoBanco;
@@ -44,7 +46,6 @@ public class Conta {
     private final String contaDV;
     private final String tipoConta;
     private final String codBeneficiario;
-    private final String idCedente;
     private final LocalDateTime criado;
     private final LocalDateTime atualizado;
     private final String codEmpresa;
@@ -62,7 +63,6 @@ public class Conta {
     	contaDV = null;        
     	tipoConta = null;      
     	codBeneficiario = null;
-    	idCedente = null;      
     	criado = null;          
     	atualizado = null;      
     	codEmpresa = null;

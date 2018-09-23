@@ -4,6 +4,7 @@ import static com.avinfo.boleto.util.ParserUtil.toLocalDateTime;
 
 import java.io.IOException;
 
+import com.avinfo.boleto.domain.Cedente;
 import com.avinfo.boleto.domain.Conta;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,7 +31,7 @@ public class ContaDTODeserialize extends JsonDeserializer<Conta> {
 					.contaDV(dados.get("conta_dv").asText())
 					.tipoConta(dados.get("tipo_conta").asText())
 					.codBeneficiario(dados.get("cod_beneficiario").asText())
-					.idCedente(dados.get("id_cedente").asText())
+					.cedente(Cedente.builder().idIntegracao(dados.get("id_cedente").asLong()).build())
 					.criado(toLocalDateTime(dados.get("criado").asText()))
 					.atualizado(toLocalDateTime(dados.get("atualizado").asText()))
 					.codEmpresa(dados.get("cod_empresa").asText())

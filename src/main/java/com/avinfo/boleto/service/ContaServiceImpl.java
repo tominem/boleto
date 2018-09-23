@@ -30,16 +30,21 @@ public class ContaServiceImpl implements ContaService {
 		Cedente cedente = conta.getCedente();
 		String cpfCnpjCedente = cedente.getCpfCnpj();
 		Long idIntegracao = conta.getIdIntegracao();
-		Conta contaCadastrada = idIntegracao != null ? 
+		Conta contaDTO = idIntegracao != null ? 
 				contaClient.editar(conta, cpfCnpjCedente, idIntegracao) :
 				contaClient.cadastrar(conta, cpfCnpjCedente);
+		
+		Conta contaAhSalvar = contaDTO.toBuilder()
+									  .id(conta.getId())
+									  .cedente(cedente)
+									  .build();
 				
-		return contaRepository.save(contaCadastrada);
+		return contaRepository.save(contaAhSalvar);
 	}
 
 	@Override
 	public Optional<Conta> findById(Long id) {
 		return contaRepository.findById(id);
 	}
-
+	
 }

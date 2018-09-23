@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 
 import com.avinfo.boleto.client.ContaDTODeserialize;
 import com.avinfo.boleto.client.ContaDTOSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -22,6 +24,7 @@ import lombok.ToString;
 
 @JsonSerialize(using=ContaDTOSerialize.class)
 @JsonDeserialize(using=ContaDTODeserialize.class)
+@JsonInclude(Include.NON_NULL)
 @Getter
 @RequiredArgsConstructor
 @EqualsAndHashCode

@@ -1,5 +1,7 @@
 package com.avinfo.boleto.client;
 
+import static com.avinfo.boleto.util.ParserUtil.writeStringField;
+
 import java.io.IOException;
 
 import com.avinfo.boleto.domain.Conta;
@@ -13,13 +15,13 @@ public class ContaDTOSerialize extends JsonSerializer<Conta> {
 	public void serialize(Conta conta, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 
 		gen.writeStartObject();
-		gen.writeStringField("ContaCodigoBanco", conta.getCodigoBanco());
-		gen.writeStringField("ContaAgencia", conta.getAgenciaDV());
-		gen.writeStringField("ContaAgenciaDV", conta.getAgenciaDV());
-		gen.writeStringField("ContaNumero", conta.getConta());
-		gen.writeStringField("ContaNumeroDV", conta.getContaDV());
-		gen.writeStringField("ContaTipo", conta.getTipoConta());
-		gen.writeStringField("ContaCodigoBeneficiario", conta.getCodBeneficiario());
+		writeStringField(gen, "ContaCodigoBanco", conta.getCodigoBanco());
+		writeStringField(gen, "ContaAgencia", conta.getAgencia());
+		writeStringField(gen, "ContaAgenciaDV", conta.getAgenciaDV());
+		writeStringField(gen, "ContaNumero", conta.getConta());
+		writeStringField(gen, "ContaNumeroDV", conta.getContaDV());
+		writeStringField(gen, "ContaTipo", conta.getTipoConta());
+		writeStringField(gen, "ContaCodigoBeneficiario", conta.getCodBeneficiario());
 		gen.writeEndObject();
 		
 	}

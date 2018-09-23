@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.avinfo.boleto.client.ContaClient;
+import com.avinfo.boleto.domain.Cedente;
 import com.avinfo.boleto.domain.Conta;
 import com.avinfo.boleto.repository.ContaRepository;
 
@@ -25,8 +26,14 @@ public class ContaServiceImpl implements ContaService {
 	
 	@Override
 	@Transactional
-	public Conta cadastrarConta(Conta conta) {
-		Conta contaCadastrada = contaClient.cadastrarConta(conta);
+	public Conta save(Conta conta) {
+		Cedente cedente = conta.getCedente();
+		String cpfCnpjCedente = cedente.getCpfCnpj();
+		Long idIntegracao = conta.getIdIntegracao();
+		Conta contaCadastrada = idIntegracao != null ? 
+				contaClient.editar(conta, cpfCnpjCedente, idIntegracao) :
+				contaClient.cadastrar(conta, cpfCnpjCedente);
+				
 		return contaRepository.save(contaCadastrada);
 	}
 

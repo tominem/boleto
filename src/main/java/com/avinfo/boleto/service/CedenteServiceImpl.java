@@ -25,16 +25,17 @@ public class CedenteServiceImpl implements CedenteService{
 	
 	@Override
 	@Transactional
-	public Cedente cadastrarCedente(Cedente cedente) {
-		Cedente cedenteAhSerSalvo = cedenteClient.cadastrarCedente(cedente);
+	public Cedente save(final Cedente cedente) {
+		Cedente cedenteAhSerSalvo = cedente.getIdIntegracao() != null ?
+			cedenteClient.editar(cedente, cedente.getIdIntegracao()) :
+			cedenteClient.cadastrar(cedente);
+		
 		return cedenteRepository.save(cedenteAhSerSalvo);
 	}
-
+	
 	@Override
 	public Optional<Cedente> findById(Long id) {
 		return cedenteRepository.findById(id);
 	}
 
-	
-	
 }

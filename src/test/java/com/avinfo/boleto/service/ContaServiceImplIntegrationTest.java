@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.avinfo.boleto.client.ContaClient;
+import com.avinfo.boleto.client.ContaClientImpl;
 import com.avinfo.boleto.client.exception.TecnospedRestClientError;
 import com.avinfo.boleto.config.TecnospedRestConfig;
 import com.avinfo.boleto.domain.Cedente;
@@ -22,7 +22,7 @@ import com.avinfo.boleto.domain.Conta;
 import com.avinfo.boleto.repository.ContaRepository;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={TecnospedRestConfig.class, ContaRepository.class, ContaClient.class, ContaServiceImpl.class})
+@ContextConfiguration(classes={TecnospedRestConfig.class, ContaRepository.class, ContaClientImpl.class, ContaServiceImpl.class})
 @EnableJpaRepositories(basePackageClasses=ContaRepository.class)
 @DataJpaTest
 @EntityScan(basePackageClasses={Cedente.class, Conta.class})
@@ -36,8 +36,7 @@ public class ContaServiceImplIntegrationTest {
 		return new Random().nextInt((max - min) + 1) + min;
 	}
 
-	@Test
-	public void cadastrarCedenteSuccessTest(){
+	private Conta cadastrarConta(){
 
 		final Conta conta = Conta.builder()
 			     .codigoBanco("341")
@@ -53,7 +52,7 @@ public class ContaServiceImplIntegrationTest {
                 		 	.build())
                  .build();
 		
-		Conta contaCadastrado = contaService.cadastrarConta(conta);
+		Conta contaCadastrado = contaService.save(conta);
 		Conta contaSaved = contaService.findById(contaCadastrado.getId()).get();
 		
 		assertThat(contaSaved.getId()).isNotNull().isGreaterThan(0L);
@@ -62,8 +61,37 @@ public class ContaServiceImplIntegrationTest {
 		// check idIntegracao
 		assertThat(contaSaved.getIdIntegracao()).isGreaterThan(0L);
 		
+		return contaSaved; 
 	}
 
+	@Test
+	public void cadastrarEhEditarContaSuccessTest(){
+
+		Conta contaCadastrada = cadastrarConta();
+		
+		final Conta contaDTO = Conta.builder()
+			     .codigoBanco("341")
+			     .idIntegracao(contaCadastrada.getIdIntegracao())
+			     .agencia("55555") //Numero de agência randomica
+                 .cedente(Cedente.builder()
+                		 	.id(1L)
+                		 	.cpfCnpj("01001001000113")
+                		 	.build())
+                 .build();
+		
+		Conta contaCadastrado = contaService.save(contaDTO);
+		Conta contaSaved = contaService.findById(contaCadastrado.getId()).get();
+		
+		assertThat(contaCadastrada.getAgencia()).isNotEqualTo(contaSaved);
+		assertThat(contaSaved.getAgencia()).isEqualTo("55555");
+		assertThat(contaSaved.getCodBeneficiario()).isEqualTo(contaCadastrada.getCodBeneficiario());
+		
+		assertThat(contaSaved.getId()).isNotNull().isGreaterThan(0L);
+		assertThat(contaCadastrado.getId()).isEqualTo(contaSaved.getId());
+
+	}
+
+	
 	@Test(expected=TecnospedRestClientError.class)
 	public void cadastrarCedenteFailTest(){
 		
@@ -84,8 +112,10 @@ public class ContaServiceImplIntegrationTest {
                 		 	.build())
                  .build();
 		
-		contaService.cadastrarConta(conta);
+		contaService.save(conta);
 		
 	}
+	
+	
 	
 }

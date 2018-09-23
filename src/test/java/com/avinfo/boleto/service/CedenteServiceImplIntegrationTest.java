@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.avinfo.boleto.client.CedenteClient;
+import com.avinfo.boleto.client.CedenteClientImpl;
 import com.avinfo.boleto.client.exception.TecnospedRestClientError;
 import com.avinfo.boleto.config.TecnospedRestConfig;
 import com.avinfo.boleto.domain.Cedente;
@@ -24,7 +24,7 @@ import com.avinfo.boleto.service.CedenteServiceImpl;
 import generator.CNPJGenerator;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={TecnospedRestConfig.class, CedenteServiceImpl.class, CedenteRepository.class, CedenteClient.class})
+@ContextConfiguration(classes={TecnospedRestConfig.class, CedenteServiceImpl.class, CedenteRepository.class, CedenteClientImpl.class})
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackageClasses=CedenteRepository.class)
 @DataJpaTest
@@ -52,12 +52,41 @@ public class CedenteServiceImplIntegrationTest {
                  .email("cobranca@boleto.com.br")
                  .build();
 		
-		Cedente cedenteCadastrado = cedenteService.cadastrarCedente(cedente);
+		Cedente cedenteCadastrado = cedenteService.save(cedente);
 		Cedente cedenteSaved = cedenteService.findById(cedenteCadastrado.getId()).get();
 		
 		assertThat(cedenteSaved.getId()).isNotNull().isGreaterThan(0L);
 		assertThat(cedenteCadastrado.getId()).isEqualTo(cedenteSaved.getId());
 
+		// check idIntegracao
+		assertThat(cedenteSaved.getIdIntegracao()).isGreaterThan(0L);
+		
+	}
+
+	@Test
+	public void editarCedenteSuccessTest(){
+		
+		final Cedente cedente = Cedente.builder()
+				.razaosocial("Empresa Ltda")
+				.idIntegracao(44L)
+				.nomefantasia("Empresa")
+				.cpfCnpj("77747208000101")
+				.logradouro("Av. Analista Jucá de Souza")
+				.numero("123")
+				.complemento("sala 987")
+				.bairro("Centro")
+				.cep("87012345")
+				.cidadeibge(4115200)
+				.telefone("(44) 3033-1234")
+				.email("cobranca@boleto.com.br")
+				.build();
+		
+		Cedente cedenteCadastrado = cedenteService.save(cedente);
+		Cedente cedenteSaved = cedenteService.findById(cedenteCadastrado.getId()).get();
+		
+		assertThat(cedenteSaved.getId()).isNotNull().isGreaterThan(0L);
+		assertThat(cedenteCadastrado.getId()).isEqualTo(cedenteSaved.getId());
+		
 		// check idIntegracao
 		assertThat(cedenteSaved.getIdIntegracao()).isGreaterThan(0L);
 		
@@ -80,7 +109,7 @@ public class CedenteServiceImplIntegrationTest {
                 .email("cobranca@boleto.com.br")
                 .build();
 		
-		cedenteService.cadastrarCedente(cedente);
+		cedenteService.save(cedente);
 		
 	}
 	

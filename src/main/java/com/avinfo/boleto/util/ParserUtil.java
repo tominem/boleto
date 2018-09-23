@@ -1,11 +1,12 @@
 package com.avinfo.boleto.util;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
-import org.springframework.http.HttpHeaders;
+import com.fasterxml.jackson.core.JsonGenerator;
 
 public class ParserUtil {
 
@@ -19,10 +20,10 @@ public class ParserUtil {
 		return null;
 	}
 
-	public static HttpHeaders newHttpHeader(HttpHeaders tecnospedHeaders) {
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.addAll(tecnospedHeaders);
-		return httpHeaders;
+	public static void writeStringField(JsonGenerator gen, String field, String value) throws IOException {
+		if (value != null) {
+			gen.writeStringField(field, value);
+		}
 	}
 
 }

@@ -9,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.avinfo.boleto.client.ConvenioDTODeserializer;
 import com.avinfo.boleto.client.ConvenioDTOSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.Builder;
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @JsonSerialize(using=ConvenioDTOSerializer.class)
+@JsonDeserialize(using=ConvenioDTODeserializer.class)
 @RequiredArgsConstructor
 @Getter
 @EqualsAndHashCode

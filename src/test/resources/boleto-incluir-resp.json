@@ -1,0 +1,69 @@
+
+{
+  "_status": "sucesso",
+  "_dados": {
+    "_sucesso": [
+      {
+        "idintegracao": "H1-vGuYDul",
+        "situacao": "SALVO",
+        "TituloNumeroDocumento": "1",
+        "TituloNossoNumero": "6",
+        "CedenteContaCodigoBanco": "341",
+        "CedenteContaNumero": "54321",
+        "CedenteConvenioNumero": "321"
+      },
+      {
+        "idintegracao": "H1-vGuYDul2",
+        "situacao": "SALVO",
+        "TituloNumeroDocumento": "2",
+        "TituloNossoNumero": "6",
+        "CedenteContaCodigoBanco": "341",
+        "CedenteContaNumero": "54321",
+        "CedenteConvenioNumero": "321"
+      }
+    ],
+    "_falha": [
+      {
+        "_status_http": 400,
+        "_erro": {
+          "erroValidacao": true,
+          "erros": {
+            "boleto": "Boleto com Nosso Número 7 já existe para este convênio."
+          }
+        },
+        "_dados": {
+          "CedenteContaNumero": "54321",
+          "CedenteContaNumeroDV": "0",
+          "CedenteConvenioNumero": "321",
+          "CedenteContaCodigoBanco": "341",
+          "SacadoCPFCNPJ": "28436161661",
+          "SacadoEmail": "email@sacado.com",
+          "SacadoEnderecoNumero": "987",
+          "SacadoEnderecoBairro": "Centro",
+          "SacadoEnderecoCEP": "87098765",
+          "SacadoEnderecoCidade": "Maringá",
+          "SacadoEnderecoComplemento": "Fundos",
+          "SacadoEnderecoLogradouro": "Rua teste, 987",
+          "SacadoEnderecoPais": "Brasil",
+          "SacadoEnderecoUF": "PR",
+          "SacadoNome": "Teste de Souza",
+          "SacadoTelefone": "4499999999",
+          "SacadoCelular": "44999999999",
+          "TituloDataDesconto": "05/01/2020",
+          "TituloValorDesconto": "0,01",
+          "TituloDataEmissao": "01/01/2020",
+          "TituloDataVencimento": "01/01/2020",
+          "TituloValorJuros": "0,01",
+          "TituloPrazoProtesto": "30",
+          "TituloMensagem01": "Juros de 0,01 ao dia",
+          "TituloMensagem02": "Nao receber apos 30 dias de atraso",
+          "TituloMensagem03": "Titulo sujeito a protesto apos 30 dias",
+          "TituloNossoNumero": "7",
+          "TituloNumeroDocumento": "01012020",
+          "TituloValor": "0,02",
+          "TituloLocalPagamento": "Pagável em qualquer banco até o vencimento."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+
+  "_status": "sucesso",
+  "_dados": {
+    "_sucesso": [
+      {
+        "idintegracao": "H1-vGuYDul",
+        "situacao": "SALVO",
+        "TituloNumeroDocumento": "1",
+        "TituloNossoNumero": "6",
+        "CedenteContaCodigoBanco": "341",
+        "CedenteContaNumero": "54321",
+        "CedenteConvenioNumero": "321"
+      },
+      {
+        "idintegracao": "H1-vGuYDul2",
+        "situacao": "SALVO",
+        "TituloNumeroDocumento": "2",
+        "TituloNossoNumero": "6",
+        "CedenteContaCodigoBanco": "341",
+        "CedenteContaNumero": "54321",
+        "CedenteConvenioNumero": "321"
+      }
+    ]
+  }
+}

@@ -70,7 +70,7 @@ public class ContaServiceImplIntegrationTest {
 		final Long idPersisted = contaPersisted.getId();
 		
 		final Conta contaDTO = contaPersisted.toBuilder()
-			     .agencia("55555") //Numero de agência randomica
+			     .agencia("55555")
                  .build();
 		
 		final Conta contaTransmited = contaService.save(contaDTO);

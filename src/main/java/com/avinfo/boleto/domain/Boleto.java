@@ -1,8 +1,8 @@
 package com.avinfo.boleto.domain;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -97,9 +97,9 @@ public class Boleto {
 	private String tituloCip;
 	private BoletoSituacao situacao;
 	
-	@OneToMany(mappedBy="boleto")
+	@OneToMany(mappedBy="boleto", cascade=CascadeType.ALL, orphanRemoval=true)
 	@Builder.Default
-	private Set<BoletoLog> boletoLog = new HashSet<>();
+	private List<BoletoLog> boletoLog = new ArrayList<>();
 	
 	Boleto(){
 		id = null;
@@ -162,7 +162,12 @@ public class Boleto {
 	
 	public void addBoletoLog(BoletoLog boletoLog){
 		this.boletoLog.add(boletoLog);
-		boletoLog.setBoleto(this);
+	}
+
+	public void addBoletoLog(List<BoletoLog> boletoLogs) {
+		if (boletoLogs != null) {
+			boletoLogs.forEach(this::addBoletoLog);
+		}
 	}
 	
 }

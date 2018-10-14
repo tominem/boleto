@@ -10,4 +10,10 @@ public interface BoletoService {
 
 	Boleto save(Boleto boleto);
 
+	List<Boleto> save(List<Boleto> boletos);
+
+	List<Boleto> findByIds(Long ... ids);
+
+	List<Boleto> findByIds(List<Long> collect);
+
 }

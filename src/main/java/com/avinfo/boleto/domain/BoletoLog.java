@@ -13,10 +13,12 @@ import javax.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 @Entity
 public class BoletoLog {
 	
@@ -27,7 +29,7 @@ public class BoletoLog {
 	@Lob
 	private String erro;
 	
-	private BoletoSituacao falha;
+	private BoletoSituacao situacao;
 	
 	@Basic
 	private LocalDateTime dataHora = LocalDateTime.now();
@@ -35,17 +37,15 @@ public class BoletoLog {
 	@ManyToOne
 	private Boleto boleto;
 
-	private BoletoSituacao boletoSituacao;
-	
 	public BoletoLog() {}
 	
-	public BoletoLog(BoletoSituacao boletoSituacao){
-		this.boletoSituacao = boletoSituacao;
+	public BoletoLog(BoletoSituacao situacao){
+		this.situacao = situacao;
 	}
 	
-	public BoletoLog(String erro, BoletoSituacao falha) {
+	public BoletoLog(String erro, BoletoSituacao situacao) {
 		this.erro = erro;
-		this.falha = falha;
+		this.situacao = situacao;
 	}
 	
 }

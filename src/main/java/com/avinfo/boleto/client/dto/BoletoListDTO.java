@@ -16,5 +16,13 @@ public class BoletoListDTO {
 	
 	private Map<Long, Boleto> successeds = new HashMap<>();
 	private Map<Long, Boleto> faileds = new HashMap<>();
+	
+	public void addSuccessed(Boleto boleto){
+		successeds.put(boleto.getId(), boleto);
+	}
+
+	public void addFailed(Boleto boleto){
+		faileds.put(boleto.getId(), boleto);
+	}
 
 }

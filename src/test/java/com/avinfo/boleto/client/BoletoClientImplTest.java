@@ -1,4 +1,4 @@
-package com.avinfo.boleto.service;
+package com.avinfo.boleto.client;
 
 import static com.avinfo.boleto.domain.BoletoSituacao.FALHA;
 import static com.avinfo.boleto.domain.BoletoSituacao.SALVO;
@@ -55,7 +55,7 @@ public class BoletoClientImplTest {
 		
 		String json = loadJSON("boleto-incluir-resp.json");
 		
-		mockServer.expect(once(), requestTo(BoletoClientImpl.END_POINT))
+		mockServer.expect(once(), requestTo(BoletoClientImpl.END_POINT_LOTE))
 			.andExpect(method(HttpMethod.POST))
 			.andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
 		
@@ -89,7 +89,7 @@ public class BoletoClientImplTest {
 		
 		String json = loadJSON("boleto-incluir-resp-bem-sucedidos.json");
 		
-		mockServer.expect(once(), requestTo(BoletoClientImpl.END_POINT))
+		mockServer.expect(once(), requestTo(BoletoClientImpl.END_POINT_LOTE))
 			.andExpect(method(HttpMethod.POST))
 			.andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
 		
@@ -122,7 +122,7 @@ public class BoletoClientImplTest {
 		
 		String json = loadJSON("boleto-incluir-resp-mal-sucedidos.json");
 		
-		mockServer.expect(once(), requestTo(BoletoClientImpl.END_POINT))
+		mockServer.expect(once(), requestTo(BoletoClientImpl.END_POINT_LOTE))
 			.andExpect(method(HttpMethod.POST))
 			.andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
 		

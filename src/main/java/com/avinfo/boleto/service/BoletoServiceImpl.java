@@ -6,12 +6,18 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.avinfo.boleto.client.BoletoClient;
+import com.avinfo.boleto.client.dto.BoletoConsultaDTO;
 import com.avinfo.boleto.client.dto.BoletoListDTO;
+import com.avinfo.boleto.client.dto.BoletoSolicitaImpressaoDTO;
+import com.avinfo.boleto.client.dto.TipoImpressao;
 import com.avinfo.boleto.domain.Boleto;
 import com.avinfo.boleto.domain.BoletoSituacao;
 import com.avinfo.boleto.repository.BoletoRepository;
@@ -29,10 +35,12 @@ public class BoletoServiceImpl implements BoletoService{
 	}
 	
 	@Override
+	@Transactional
 	public Boleto save(Boleto boleto){
 		return boletoRepository.save(boleto);
 	}
 	
+	@Transactional
 	@Override
 	public List<Boleto> incluir(List<Boleto> boletos, String cpfCnpjCedente) {
 		BoletoListDTO boletoListDTO = boletoClient.incluir(boletos, cpfCnpjCedente);
@@ -66,11 +74,11 @@ public class BoletoServiceImpl implements BoletoService{
 			}
 			
 			boleto.addBoletoLog(boletoTrans.getBoletoLog());
-			
 		}
 	}
 
 	@Override
+	@Transactional
 	public List<Boleto> save(List<Boleto> boletos) {
 		return boletoRepository.saveAll(boletos);
 	}
@@ -83,6 +91,35 @@ public class BoletoServiceImpl implements BoletoService{
 	@Override
 	public List<Boleto> findByIds(List<Long> ids) {
 		return boletoRepository.findAllById(ids);
+	}
+
+	@Override
+	public List<Boleto> getFromWS(Map<String, String> params, String cpfCnpjCedente) {
+		BoletoConsultaDTO boletoConsultaDTO = boletoClient.consultaBoleto(params, cpfCnpjCedente);
+		Set<Long> keySet = boletoConsultaDTO.getBoletos().keySet();
+		return boletoRepository.findAllById(keySet);
+	}
+
+	@Transactional
+	@Override
+	public List<Boleto> solicitaImpressao(List<Boleto> boletos, TipoImpressao tipoImpressao, String cpfCnpjCedente) {
+		BoletoSolicitaImpressaoDTO dto = new BoletoSolicitaImpressaoDTO(boletos, tipoImpressao);
+		Map<String, String> resp = boletoClient.solicitaImpressao(dto, cpfCnpjCedente);
+		
+		String protocolo = resp.get(BoletoClient.PROTOCOLO);
+		BoletoSituacao boletoSituacao = BoletoSituacao.valueOf(resp.get(BoletoClient.SITUACAO));
+		
+		boletos.stream().forEach(b -> {
+			b.setSituacao(boletoSituacao);
+			b.setProtocoloImpressao(protocolo);
+		});
+		
+		return boletoRepository.saveAll(boletos);
+	}
+	
+	@Override
+	public byte[] salvarPDF(String procolo, String cnpjCedente){
+		return boletoClient.salvandoPDF(procolo, cnpjCedente);
 	}
 
 }

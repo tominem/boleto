@@ -25,7 +25,14 @@ public class ParserUtil {
 	}
 	
 	public static String getAsString(JsonNode node, String fieldName){
-		JsonNode jsonNode = node.get(fieldName);
+		String[] fields = fieldName.split("\\|");
+		int i = 0;
+		
+		JsonNode jsonNode = null;
+		do {
+			jsonNode = node.get(fields[i]);
+			i++;
+		} while (jsonNode == null && i < fields.length);
 		
 		if (jsonNode != null) {
 			return jsonNode.asText().trim();

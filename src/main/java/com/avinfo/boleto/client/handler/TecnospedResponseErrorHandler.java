@@ -50,6 +50,8 @@ public class TecnospedResponseErrorHandler implements ResponseErrorHandler {
             	.ifPresent(node -> {
             		if (node.isArray()) {
 						node.forEach(dadosErro::append);
+					} else{
+						dadosErro.append(node.toString());
 					}
         	});
             

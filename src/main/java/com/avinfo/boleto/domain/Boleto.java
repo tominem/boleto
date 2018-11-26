@@ -33,7 +33,7 @@ import lombok.ToString;
 public class Boleto {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	private String idIntegracao;
@@ -96,6 +96,7 @@ public class Boleto {
 	private String tituloIos;
 	private String tituloCip;
 	private BoletoSituacao situacao;
+	private String protocoloImpressao;
 	
 	@OneToMany(mappedBy="boleto", cascade=CascadeType.ALL, orphanRemoval=true)
 	@Builder.Default
@@ -158,6 +159,7 @@ public class Boleto {
 		tituloIos = null;
 		tituloCip = null;
 		situacao = null;
+		protocoloImpressao = null;
 	}
 	
 	public void addBoletoLog(BoletoLog boletoLog){

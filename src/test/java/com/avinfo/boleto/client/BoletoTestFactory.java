@@ -1,4 +1,4 @@
-package com.avinfo.boleto.service;
+package com.avinfo.boleto.client;
 
 import java.time.LocalDate;
 
@@ -12,7 +12,7 @@ public class BoletoTestFactory {
 	public Boleto buildBoleto() {
 		
 		Sacado sacado = Sacado.builder()
-				.cpjcnpj("82441266713")
+				.cpjcnpj("28436161661")
 				.email("cliente.sacado@email.com")
 				.enderecoNumero("328")
 				.enderecoBairro("JARDIM PRIMAVERA")
@@ -28,13 +28,13 @@ public class BoletoTestFactory {
 				.build();
 		
 		Conta conta = Conta.builder()
-				.conta("24703")
-				.contaDV("3")
+				.conta("54321")
+				.contaDV("0")
 				.codigoBanco("341")
 				.build();
 		
 		Convenio convenio = Convenio.builder()
-				.numeroConvenio("3788247033")
+				.numeroConvenio("321")
 				.conta(conta)
 				.build();
 		
@@ -43,13 +43,13 @@ public class BoletoTestFactory {
 				.convenio(convenio)
 				.tituloNumeroDocumento("000001")
 				.tituloDataDesconto(LocalDate.now())
-				.tituloValorDesconto("50)00")
+				.tituloValorDesconto("5,00")
 				.tituloDataEmissao(LocalDate.now())
 				.tituloDataVencimento(LocalDate.now())
 				.tituloValorJuros("5,96")
 				.tituloPrazoProtesto("0")
 				.tituloMensagem01("Não receber após o vencimento.")
-				.tituloMensagem02("Boleto 1 de 1 referente a NF 1 de 11/04/2017 com chave 41170308187168000160553290000070551416403145")
+				.tituloMensagem02("Boleto 1 de 1 referente a NF 1 de 11/04/2017")
 				.tituloMensagem03("Se o boleto for pago até 14/04/2017) terá um desconto de 50)00")
 				.tituloMensagem04("Mensagem 04")
 				.tituloMensagem05("Mensagem 05")

@@ -63,6 +63,11 @@ public enum BoletoSituacao {
 	 * Esta situação irá ocorrer quando for feito o upload do retorno, e indica 
 	 * que o sacado realizou o pagamento do boleto.
 	 */
-	LIQUIDADO
+	LIQUIDADO,
+	
+	/**
+	 * Logo Após ser enviado o lote para impressão do boleto
+	 */
+	PROCESSANDO
 
 }

@@ -7,11 +7,10 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -236,9 +235,9 @@ public class BoletoServiceImplIntegrationTest {
 		
 		byte[] pdf = boletoService.salvarPDF(boletosComProtocolo.get(0).getProtocoloImpressao(), CPF_CNPJ_CEDENTE);
 		
-		Path pathFile = Paths.get("boleto.pdf");
+		Path pathFile = new File("boleto.pdf").toPath();
 		if (pdf.length > 0) {
-			Files.write(pathFile, pdf, StandardOpenOption.WRITE);
+			Files.write(pathFile, pdf);
 			Files.delete(pathFile);
 	    }
 		

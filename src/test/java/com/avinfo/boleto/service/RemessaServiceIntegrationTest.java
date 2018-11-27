@@ -1,7 +1,10 @@
 package com.avinfo.boleto.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +47,7 @@ public class RemessaServiceIntegrationTest {
 	}
 	
 	@Test
-	public void socitia_remessa(){
+	public void socitia_remessa_uma_agencia(){
 		
 		Boleto boleto1 = helper.buildBoleto();
 		Boleto boleto2 = helper.buildBoleto();
@@ -67,9 +70,11 @@ public class RemessaServiceIntegrationTest {
 		List<Boleto> boletos = Arrays.asList(boleto1, boleto2, boleto3);
 		
 		GeraRemessaRetDTO dto = remessaService.geraRemessa(boletos);
-		List<Remessa> remessa = dto.getRemessas();
+		List<Remessa> remessas = dto.getRemessas();
 		List<Boleto> boletosComFalha = dto.getFalhas();
 		
+		assertThat(remessas.stream().map(Remessa::getBoletos).flatMap(Stream::of).allMatch(b -> boletos.contains(b)));
+		assertThat(boletosComFalha).isEqualTo(null);
 		
 	}
 
